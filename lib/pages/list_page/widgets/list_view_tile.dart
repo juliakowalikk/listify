@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:listify/cubits/list_cubit.dart';
 import 'package:listify/models/my_category_model.dart';
 import 'package:listify/models/product_model.dart';
+import 'package:uuid/uuid.dart';
 
 class ListViewTile extends StatefulWidget {
   const ListViewTile({super.key});
@@ -15,6 +16,7 @@ class ListViewTile extends StatefulWidget {
 class _ListViewTileState extends State<ListViewTile> {
   final TextEditingController productController = TextEditingController();
   bool isClicked = false;
+  var uuid = const Uuid();
 
   @override
   Widget build(BuildContext context) => BlocBuilder<ListCubit, ListState>(
@@ -86,7 +88,11 @@ class _ListViewTileState extends State<ListViewTile> {
               onPressed: () {
                 context.read<ListCubit>().addToList(
                       Product(
-                          title: productController.text, category: myCategory),
+                        id: uuid.v1(),
+                        title: productController.text,
+                        category: myCategory,
+                      ),
+                      productController.text,
                     );
                 productController.clear();
               },

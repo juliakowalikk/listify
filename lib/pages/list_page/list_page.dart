@@ -11,17 +11,19 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(
-            Strings.of(context).listPageAppBarTitle,
-            style: const TextStyle(color: Colors.black),
-          ),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          Strings.of(context).listPageAppBarTitle,
+          style: const TextStyle(color: Colors.black),
         ),
-        body: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: ListViewTile(),
-        ),
-      );
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: ListViewTile(),
+      ),
+    );
+  }
 }
