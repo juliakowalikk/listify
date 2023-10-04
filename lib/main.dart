@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:listify/pages/registration_page/registration_page.dart';
 
 import 'cubits/list_cubit.dart';
 import 'firebase_options.dart';
-import 'pages/list_page/list_page.dart';
 
 bool shouldUseFirestoreEmulator = false;
 
@@ -33,7 +33,7 @@ void main() async {
         supportedLocales: [
           Locale('en'),
         ],
-        home: ListPage(),
+        home: RegistrationPage(),
       ),
     ),
   );
