@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:listify/models/my_category_model.dart';
+import 'package:listify/domain/models/listify_category_model.dart';
 
 class Product extends Equatable {
   final String id;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:listify/cubits/list_cubit.dart';
-import 'package:listify/models/my_category_model.dart';
-import 'package:listify/models/product_model.dart';
+import 'package:listify/domain/models/listify_category_model.dart';
+import 'package:listify/domain/models/product_model.dart';
+import 'package:listify/presentation/pages/list/cubit/list_cubit.dart';
 import 'package:uuid/uuid.dart';
 
 class ListViewTile extends StatefulWidget {

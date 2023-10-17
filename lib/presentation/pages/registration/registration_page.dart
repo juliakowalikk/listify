@@ -1,21 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:listify/pages/list_page/list_page.dart';
-import 'package:listify/pages/login_page/login_page.dart';
-import 'package:listify/pages/user_text_field.dart';
+import 'package:listify/presentation/pages/list/list_page.dart';
+import 'package:listify/presentation/pages/sign_in/sign_in_page.dart';
+import 'package:listify/presentation/widgets/listify_text_field.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+class Registration extends StatefulWidget {
+  const Registration({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<Registration> createState() => _RegistrationState();
 }
 
-TextEditingController emailController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
-TextEditingController nameController = TextEditingController();
+class _RegistrationState extends State<Registration> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
-class _RegistrationPageState extends State<RegistrationPage> {
   @override
   void dispose() {
     emailController.dispose();
@@ -56,10 +57,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey.shade800),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ListPage()),
-                    );
+                    FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: emailController.text,
+                            password: passwordController.text)
+                        .then(
+                          (value) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ListPage(),
+                            ),
+                          ),
+                        )
+                        .onError((error, stackTrace) => print('error $error'));
                   },
                   child: const Text(
                     'Sign Up',
@@ -78,7 +88,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           ..onTap = () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
+                                  builder: (context) => const SignIn(),
                                 ),
                               ),
                       ),
