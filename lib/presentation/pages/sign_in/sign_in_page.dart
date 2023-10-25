@@ -1,8 +1,9 @@
-import 'package:flutter/gestures.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:listify/presentation/pages/list/list_page.dart';
 import 'package:listify/presentation/pages/sign_in/cubit/sign_in_cubit.dart';
+import 'package:listify/presentation/pages/sign_in/widgets/sign_in_register_now.dart';
 import 'package:listify/presentation/widgets/listify_text_field.dart';
 
 class SignIn extends StatefulWidget {
@@ -12,10 +13,11 @@ class SignIn extends StatefulWidget {
   State<SignIn> createState() => _SignInState();
 }
 
-TextEditingController emailController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
-
 class _SignInState extends State<SignIn> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     emailController.dispose();
@@ -26,68 +28,88 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (context) => LoginCubit(),
-        child: BlocBuilder<LoginCubit, LoginState>(
-          builder: (context, state) {
-            return Scaffold(
-              body: SafeArea(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Welcome back to Listify!',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+        child: Builder(
+          builder: (context) => ScaffoldMessenger(
+            child: BlocListener<LoginCubit, LoginState>(
+              listener: _listener,
+              child: Scaffold(
+                body: SafeArea(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Welcome back to Listify!',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800, fontSize: 20),
+                        ),
+                        const Text(
+                            'Enter your credential to access your account'),
+                        UserTextField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            } else if (!EmailValidator.validate(value)) {
+                              return 'Write correct email';
+                            }
+
+                            return null;
+                          },
+                          controller: emailController,
+                          hintText: 'Email address',
+                          isTextVisible: false,
+                        ),
+                        UserTextField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          controller: passwordController,
+                          hintText: 'Password',
+                          isTextVisible: true,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey.shade800),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              context.read<LoginCubit>().signIn(
+                                  emailController.text,
+                                  passwordController.text);
+                            }
+                          },
+                          child: const Text('Login'),
+                        ),
+                        const SignInRegisterNow()
+                      ],
                     ),
-                    const Text('Enter your credential to access your account'),
-                    UserTextField(
-                      controller: emailController,
-                      hintText: 'Email address',
-                      isTextVisible: false,
-                    ),
-                    UserTextField(
-                      controller: passwordController,
-                      hintText: 'Password',
-                      isTextVisible: true,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey.shade800),
-                      onPressed: () {
-                        context
-                            .read<LoginCubit>()
-                            .signIn(
-                                emailController.text, passwordController.text)
-                            .then(
-                              (value) => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ListPage(),
-                                ),
-                              ),
-                            );
-                      },
-                      child: const Text('Login'),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          const TextSpan(
-                              text: 'Not a member?',
-                              style: TextStyle(color: Colors.black)),
-                          TextSpan(
-                            text: ' Register now',
-                            style: const TextStyle(color: Colors.blue),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => Navigator.pop(context),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                  ),
                 ),
               ),
-            );
-          },
+            ),
+          ),
+        ),
+      );
+
+  void _listener(BuildContext context, LoginState state) => state.maybeWhen(
+        goToList: () {
+          emailController.clear();
+          passwordController.clear();
+          return Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const ListPage()));
+        },
+        error: () => showErrorSnackBar(context, 'Something went wrong'),
+        orElse: () => null,
+      );
+
+  showErrorSnackBar(BuildContext context, String errorText) =>
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.blue.shade900,
+          content: Text(errorText),
         ),
       );
 }

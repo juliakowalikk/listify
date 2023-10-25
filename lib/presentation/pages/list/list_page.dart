@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:listify/presentation/pages/list/widgets/list_view_tile.dart';
+import 'package:listify/presentation/pages/sign_in/sign_in_page.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({super.key});
@@ -31,7 +32,11 @@ class _ListPageState extends State<ListPage> {
                     backgroundColor: Colors.grey.shade800),
                 onPressed: () => FirebaseAuth.instance
                     .signOut()
-                    .then((value) => Navigator.pop(context)),
+                    .then((value) => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignIn()),
+                        )),
                 child: const Text('Log out'),
               )
             ],

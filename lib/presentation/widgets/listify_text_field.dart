@@ -4,18 +4,22 @@ class UserTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool isTextVisible;
-  const UserTextField(
-      {super.key,
-      required this.controller,
-      required this.hintText,
-      required this.isTextVisible});
+  final String? Function(String?)? validator;
+  const UserTextField({
+    super.key,
+    this.validator,
+    required this.controller,
+    required this.hintText,
+    required this.isTextVisible,
+  });
 
   @override
   Widget build(BuildContext context) => Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(
+            child: TextFormField(
+              validator: validator,
               obscureText: isTextVisible,
               cursorColor: Colors.black,
               decoration: InputDecoration(
