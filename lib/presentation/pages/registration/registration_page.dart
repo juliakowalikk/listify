@@ -17,6 +17,7 @@ class _RegistrationState extends State<Registration> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -29,85 +30,116 @@ class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (context) => RegistrationCubit(),
-        child: BlocBuilder<RegistrationCubit, RegistrationState>(
-          builder: (context, state) {
-            return Scaffold(
-              body: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Welcome to Listify!',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800, fontSize: 20),
-                      ),
-                      const Text('Register to create your account'),
-                      UserTextField(
-                        controller: nameController,
-                        hintText: 'Name',
-                        isTextVisible: false,
-                      ),
-                      UserTextField(
-                        controller: emailController,
-                        hintText: 'Email address',
-                        isTextVisible: false,
-                      ),
-                      UserTextField(
-                        controller: passwordController,
-                        hintText: 'Password',
-                        isTextVisible: true,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey.shade800),
-                        onPressed: () {
-                          context
-                              .read<RegistrationCubit>()
-                              .register(emailController.text.trim(),
-                                  passwordController.text.trim())
-                              .then(
-                                (value) => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const ListPage(),
+        child: Builder(
+            builder: (context) => ScaffoldMessenger(
+                  child: BlocListener<RegistrationCubit, RegistrationState>(
+                    listener: _listener,
+                    child: Scaffold(
+                      body: SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Welcome to Listify!',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 20),
+                                ),
+                                const Text('Register to create your account'),
+                                UserTextField(
+                                  controller: nameController,
+                                  hintText: 'Name',
+                                  isTextVisible: false,
+                                ),
+                                UserTextField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter email';
+                                    }
+                                    return null;
+                                  },
+                                  controller: emailController,
+                                  hintText: 'Email address',
+                                  isTextVisible: false,
+                                ),
+                                UserTextField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter password';
+                                    } else if (value.length < 8) {
+                                      return 'Password must be at least 8 letters long';
+                                    }
+                                    return null;
+                                  },
+                                  controller: passwordController,
+                                  hintText: 'Password',
+                                  isTextVisible: true,
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.grey.shade800),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      context
+                                          .read<RegistrationCubit>()
+                                          .register(emailController.text.trim(),
+                                              passwordController.text.trim());
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Sign Up',
                                   ),
                                 ),
-                              )
-                              .onError(
-                                  (error, stackTrace) => print('error $error'));
-                        },
-                        child: const Text(
-                          'Sign Up',
+                                RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      const TextSpan(
+                                          text: 'Are you already a user?',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                      TextSpan(
+                                        text: ' Log in now!',
+                                        style:
+                                            const TextStyle(color: Colors.blue),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const SignIn(),
+                                                ),
+                                              ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                      RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            const TextSpan(
-                                text: 'Are you already a user?',
-                                style: TextStyle(color: Colors.black)),
-                            TextSpan(
-                              text: ' Log in now!',
-                              style: const TextStyle(color: Colors.blue),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const SignIn(),
-                                      ),
-                                    ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
+                )),
+      );
+
+  void _listener(BuildContext context, RegistrationState state) =>
+      state.maybeWhen(
+        successRegistration: () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const ListPage())),
+        error: () => showErrorSnackBar(context, 'Something went wrong'),
+        orElse: () => null,
+      );
+
+  showErrorSnackBar(BuildContext context, String errorText) =>
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.blue.shade900,
+          content: Text(errorText),
         ),
       );
 }

@@ -12,9 +12,9 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      emit(const RegistrationState.successRegistration());
     } catch (e) {
-      print('error registration');
+      emit(const RegistrationState.error());
     }
-    emit(const RegistrationState.initial());
   }
 }
