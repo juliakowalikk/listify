@@ -1,5 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:listify/domain/models/firebase_auth_model.dart';
+import 'package:listify/presentation/pages/settings/settings_page.dart';
 import 'package:listify/presentation/pages/sign_in/sign_in_page.dart';
 
 class DrawerBody extends StatelessWidget {
@@ -18,13 +19,19 @@ class DrawerBody extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
-              onTap: () {},
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsPage(
+                      userName: 'Julia',
+                    ),
+                  )),
             ),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Log out'),
               onTap: () {
-                FirebaseAuth.instance.signOut().then(
+                AuthService().firebaseAuth.signOut().then(
                       (value) => Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => const SignIn()),

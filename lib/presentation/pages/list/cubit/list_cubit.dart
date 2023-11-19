@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:listify/domain/models/firebase_auth_model.dart';
 import 'package:listify/domain/models/product_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -9,7 +9,8 @@ part 'list_cubit.freezed.dart';
 part 'list_state.dart';
 
 class ListCubit extends Cubit<ListState> {
-  ListCubit() : super(const ListState.loaded([]));
+  final AuthService authService;
+  ListCubit(this.authService) : super(const ListState.loaded([]));
 
   final List<Product> productList = [];
   var uuid = const Uuid();
@@ -18,12 +19,14 @@ class ListCubit extends Cubit<ListState> {
   CollectionReference productsDb =
       FirebaseFirestore.instance.collection('products');
 
-  void addToList(Product product, String nameOfProduct) async {
-    // productsDb.doc(product.id).set({'nameOfProduct': nameOfProduct});
-
-    final x = FirebaseAuth.instance.currentUser;
+  void addToList(Product product) async {
+    final x = authService.firebaseAuth.currentUser;
     final userid = x?.uid;
-    usersDb.doc(userid).set({'name': nameOfProduct});
+    usersDb
+        .doc(userid)
+        .collection('products')
+        .doc(product.id)
+        .set({'name': product.title});
     productList.add(product);
     emit(const ListState.idle());
     emit(ListState.loaded(productList));
@@ -36,13 +39,3 @@ class ListCubit extends Cubit<ListState> {
     emit(ListState.loaded(productList));
   }
 }
-
-//kolekcja users => dokument z id usera => kolekcja products => dokumenty z produktami
-
-//usuwa wszystko
-// productsDb.snapshots().forEach((element) {
-//   for (QueryDocumentSnapshot snapshot in element.docs) {
-//     snapshot.reference.delete();
-//     print('Element deleted');
-//   }
-// });

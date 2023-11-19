@@ -39,6 +39,7 @@ dependencies:
   build_runner: ^2.3.3
   freezed: ^2.3.5
   json_serializable: ^6.6.2
+  firebase_core : ^2.22.0
 
 
 
@@ -52,6 +53,7 @@ dependencies:
   uuid: ^4.1.0
   firebase_auth: ^4.10.0
   email_validator: ^2.1.17
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_localizations:

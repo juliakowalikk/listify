@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:listify/domain/models/firebase_auth_model.dart';
 import 'package:listify/presentation/pages/list/list_page.dart';
 import 'package:listify/presentation/pages/sign_in/cubit/sign_in_cubit.dart';
 import 'package:listify/presentation/pages/sign_in/widgets/sign_in_register_now.dart';
@@ -27,7 +28,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (context) => LoginCubit(),
+        create: (context) => LoginCubit(context.read<AuthService>()),
         child: Builder(
           builder: (context) => ScaffoldMessenger(
             child: BlocListener<LoginCubit, LoginState>(

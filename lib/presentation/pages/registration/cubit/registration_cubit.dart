@@ -1,17 +1,28 @@
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:listify/domain/models/firebase_auth_model.dart';
 
 part 'registration_cubit.freezed.dart';
 part 'registration_state.dart';
 
 class RegistrationCubit extends Cubit<RegistrationState> {
-  RegistrationCubit() : super(const RegistrationState.initial());
+  final AuthService authService;
 
-  Future<void> register(String email, String password) async {
+  RegistrationCubit(this.authService)
+      : super(const RegistrationState.initial());
+
+  CollectionReference usersDb = FirebaseFirestore.instance.collection('users');
+
+  Future<void> register(String email, String password, String userName) async {
     try {
-      await FirebaseAuth.instance
+      await authService.firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      final x = authService.firebaseAuth.currentUser;
+      print(x);
+      final userid = x?.uid;
+      usersDb.doc(userid).set({'name': userName});
       emit(const RegistrationState.successRegistration());
     } catch (e) {
       emit(const RegistrationState.error());

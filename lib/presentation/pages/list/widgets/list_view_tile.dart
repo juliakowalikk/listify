@@ -92,7 +92,6 @@ class _ListViewTileState extends State<ListViewTile> {
                         title: productController.text,
                         category: myCategory,
                       ),
-                      productController.text,
                     );
                 productController.clear();
               },

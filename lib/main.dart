@@ -1,13 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:listify/presentation/pages/list/cubit/list_cubit.dart';
-import 'package:listify/presentation/pages/sign_in/sign_in_page.dart';
-
-import 'firebase_options.dart';
+import 'package:listify/domain/models/firebase_auth_model.dart';
+import 'package:listify/firebase_options.dart';
+import 'package:listify/presentation/widgets/listify_stream_builder.dart';
+import 'package:provider/provider.dart';
 
 bool shouldUseFirestoreEmulator = false;
 
@@ -16,13 +14,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  if (shouldUseFirestoreEmulator) {
-    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
-  }
 
   runApp(
-    BlocProvider(
-      create: (context) => ListCubit(),
+    ChangeNotifierProvider<AuthService>(
+      create: (_) => AuthService(),
       child: const MaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
@@ -33,7 +28,7 @@ void main() async {
         supportedLocales: [
           Locale('en'),
         ],
-        home: SignIn(),
+        home: ListifyStreamBuilder(),
       ),
     ),
   );

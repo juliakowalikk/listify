@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:listify/presentation/pages/list/list_page.dart';
+import 'package:listify/domain/models/firebase_auth_model.dart';
 import 'package:listify/presentation/pages/registration/cubit/registration_cubit.dart';
 import 'package:listify/presentation/pages/registration/widgets/register_sign_in_now.dart';
 import 'package:listify/presentation/widgets/listify_text_field.dart';
+
+import '../list/list_page.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -28,7 +30,7 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (context) => RegistrationCubit(),
+        create: (context) => RegistrationCubit(context.read<AuthService>()),
         child: Builder(
           builder: (context) => ScaffoldMessenger(
             child: BlocListener<RegistrationCubit, RegistrationState>(
@@ -84,7 +86,8 @@ class _RegistrationState extends State<Registration> {
                               if (_formKey.currentState!.validate()) {
                                 context.read<RegistrationCubit>().register(
                                     emailController.text.trim(),
-                                    passwordController.text.trim());
+                                    passwordController.text.trim(),
+                                    nameController.text);
                               }
                             },
                             child: const Text(
