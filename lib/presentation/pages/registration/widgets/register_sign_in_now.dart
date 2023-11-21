@@ -10,8 +10,9 @@ class RegisterSignInNow extends StatelessWidget {
         text: TextSpan(
           children: <TextSpan>[
             const TextSpan(
-                text: 'Are you already a user?',
-                style: TextStyle(color: Colors.black)),
+              text: 'Are you already a user?',
+              style: TextStyle(color: Colors.black),
+            ),
             TextSpan(
               text: ' Log in now!',
               style: const TextStyle(color: Colors.blue),

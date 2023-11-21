@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:listify/domain/models/firebase_auth_model.dart';
 import 'package:listify/presentation/pages/list/list_page.dart';
 import 'package:listify/presentation/pages/sign_in/cubit/sign_in_cubit.dart';
@@ -40,36 +41,38 @@ class _SignInState extends State<SignIn> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          'Welcome back to Listify!',
-                          style: TextStyle(
+                        Text(
+                          Strings.of(context).signInTitle,
+                          style: const TextStyle(
                               fontWeight: FontWeight.w800, fontSize: 20),
                         ),
-                        const Text(
-                            'Enter your credential to access your account'),
+                        Text(
+                          Strings.of(context).signInSubtitle,
+                        ),
                         UserTextField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return Strings.of(context).emptyTextField;
                             } else if (!EmailValidator.validate(value)) {
-                              return 'Write correct email';
+                              return Strings.of(context).incorrectEmail;
                             }
 
                             return null;
                           },
                           controller: emailController,
-                          hintText: 'Email address',
+                          hintText: Strings.of(context).emailTextFieldHintText,
                           isTextVisible: false,
                         ),
                         UserTextField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
+                              return Strings.of(context).emptyTextField;
                             }
                             return null;
                           },
                           controller: passwordController,
-                          hintText: 'Password',
+                          hintText:
+                              Strings.of(context).passwordTextFieldHintText,
                           isTextVisible: true,
                         ),
                         ElevatedButton(
@@ -82,7 +85,7 @@ class _SignInState extends State<SignIn> {
                                   passwordController.text);
                             }
                           },
-                          child: const Text('Login'),
+                          child: Text(Strings.of(context).login),
                         ),
                         const SignInRegisterNow()
                       ],

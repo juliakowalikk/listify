@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:listify/domain/models/firebase_auth_model.dart';
+import 'package:listify/presentation/pages/list/list_page.dart';
 import 'package:listify/presentation/pages/registration/cubit/registration_cubit.dart';
 import 'package:listify/presentation/pages/registration/widgets/register_sign_in_now.dart';
 import 'package:listify/presentation/widgets/listify_text_field.dart';
-
-import '../list/list_page.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -44,39 +44,42 @@ class _RegistrationState extends State<Registration> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            'Welcome to Listify!',
-                            style: TextStyle(
+                          Text(
+                            Strings.of(context).registerWelcome,
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w800, fontSize: 20),
                           ),
-                          const Text('Register to create your account'),
+                          Text(Strings.of(context).registerInfo),
                           UserTextField(
                             controller: nameController,
-                            hintText: 'Name',
+                            hintText: Strings.of(context).nameHintText,
                             isTextVisible: false,
                           ),
                           UserTextField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter email';
+                                return Strings.of(context).emptyEmailTextField;
                               }
                               return null;
                             },
                             controller: emailController,
-                            hintText: 'Email address',
+                            hintText:
+                                Strings.of(context).emailTextFieldHintText,
                             isTextVisible: false,
                           ),
                           UserTextField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter password';
+                                return Strings.of(context)
+                                    .emptyPasswordTextField;
                               } else if (value.length < 8) {
-                                return 'Password must be at least 8 letters long';
+                                return Strings.of(context).shortPasswordInfo;
                               }
                               return null;
                             },
                             controller: passwordController,
-                            hintText: 'Password',
+                            hintText:
+                                Strings.of(context).passwordTextFieldHintText,
                             isTextVisible: true,
                           ),
                           ElevatedButton(
@@ -90,8 +93,8 @@ class _RegistrationState extends State<Registration> {
                                     nameController.text);
                               }
                             },
-                            child: const Text(
-                              'Sign Up',
+                            child: Text(
+                              Strings.of(context).signUpButtonText,
                             ),
                           ),
                           const RegisterSignInNow(),

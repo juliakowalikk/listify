@@ -1,51 +1,93 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:listify/domain/models/firebase_auth_model.dart';
+import 'package:listify/presentation/pages/change_password/change_password_page.dart';
 import 'package:listify/presentation/pages/settings/widgets/setting_tile.dart';
+import 'package:provider/provider.dart';
 
-class SettingsPage extends StatelessWidget {
-  final String userName;
-
-  const SettingsPage({super.key, required this.userName});
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Settings'),
-          backgroundColor: Colors.white70,
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(6.0),
-                  child: Text(
-                    'Profile',
-                    style: TextStyle(fontSize: 16),
-                  ),
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  final TextEditingController settingsTileController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    final x = context.read<AuthService>().firebaseAuth.currentUser;
+    var userName = x?.displayName;
+    var userEmail = x?.email;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(Strings.of(context).settings),
+        backgroundColor: Colors.white70,
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Text(
+                  Strings.of(context).profileTitle,
+                  style: const TextStyle(fontSize: 16),
                 ),
-                SettingTile(
-                  icon: Icons.person,
-                  settingTileTitle: 'Name:',
-                  settingTileSubtitle: userName,
-                  settingTileHintText: 'Type your name',
-                ),
-                const SettingTile(
-                  icon: Icons.lock,
-                  settingTileTitle: 'Change your password',
-                  settingTileSubtitle: '',
-                  settingTileHintText: 'Type new password',
-                ),
-                const SettingTile(
-                  settingTileTitle: 'Change your email',
-                  icon: Icons.email,
-                  settingTileSubtitle: '',
-                  settingTileHintText: 'Type new email',
-                )
-              ],
-            ),
+              ),
+              SettingTile(
+                icon: Icons.person,
+                settingTileTitle: Strings.of(context).userName,
+                settingTileSubtitle: userName.toString(),
+                settingTileHintText: Strings.of(context).changeUserNameHintText,
+                onPressed: () => _showMyDialog('Change name', 'New name'),
+              ),
+              SettingTile(
+                icon: Icons.lock,
+                settingTileTitle: Strings.of(context).changePasswordText,
+                settingTileHintText: Strings.of(context).changePasswordHintText,
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChangePasswordPage())),
+              ),
+              SettingTile(
+                settingTileTitle: userEmail.toString(),
+                icon: Icons.email,
+                settingTileHintText: Strings.of(context).changeEmailHintText,
+                onPressed: () => _showMyDialog('Change email', 'New email'),
+              )
+            ],
           ),
         ),
-      );
+      ),
+    );
+  }
+
+  Future<void> _showMyDialog(String title, String hintText) async => showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) => AlertDialog(
+            title: Text(title),
+            content: TextField(
+              controller: settingsTileController,
+              decoration: InputDecoration(
+                hintText: hintText,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(),
+                child: const Text('Close'),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text('Change'),
+              )
+            ],
+          ));
 }

@@ -3,7 +3,30 @@
   "alertDialogTextFieldTitle": "Type product",
   "alertDialogHintText": "Product name",
   "alertDialogCloseButton": "Close",
-  "alertDialogAddButton": "Add"
-
+  "alertDialogAddButton": "Add",
+  "signInTitle": "Welcome back to Listify!",
+  "signInSubtitle":"Enter your credential to access your account",
+  "emptyTextField": "Please enter some text",
+  "incorrectEmail":"Write correct email",
+  "emailTextFieldHintText":"Email address",
+  "passwordTextFieldHintText":  "Password",
+  "login":"Login",
+  "logOut": "Log out",
+  "settings": "Settings",
+  "registerWelcome": "Welcome to Listify!",
+  "registerInfo": "Register to create your account",
+  "nameHintText": "Name",
+  "emptyEmailTextField": "Please enter email",
+  "emptyPasswordTextField": "Please enter password",
+  "shortPasswordInfo": "Password must be at least 8 letters long",
+  "signUpButtonText": "Sign Up",
+  "settingsTitle": "Settings",
+  "profileTitle": "Profile details",
+  "userName": "Name:",
+  "changeUserNameHintText": "Type your name",
+  "changePasswordText": "Change your password",
+  "changePasswordHintText": "Type new password",
+  "changeEmailText": "Change your email",
+  "changeEmailHintText": "Type new email"
 
 }

@@ -14,15 +14,15 @@ class RegistrationCubit extends Cubit<RegistrationState> {
 
   CollectionReference usersDb = FirebaseFirestore.instance.collection('users');
 
-  Future<void> register(String email, String password, String userName) async {
+  Future<void> register(
+      String email, String password, String? displayName) async {
     try {
       await authService.firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
 
       final x = authService.firebaseAuth.currentUser;
-      print(x);
-      final userid = x?.uid;
-      usersDb.doc(userid).set({'name': userName});
+      await x?.updateDisplayName(displayName);
+
       emit(const RegistrationState.successRegistration());
     } catch (e) {
       emit(const RegistrationState.error());

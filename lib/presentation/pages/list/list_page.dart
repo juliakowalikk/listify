@@ -27,13 +27,9 @@ class _ListPageState extends State<ListPage> {
               style: const TextStyle(color: Colors.black),
             ),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: const [
-                ListViewTile(),
-              ],
-            ),
+          body: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: ListViewTile(),
           ),
         ),
       );

@@ -12,7 +12,6 @@ class ListifyStreamBuilder extends StatelessWidget {
   Widget build(BuildContext context) => StreamBuilder<User?>(
         stream: context.read<AuthService>().onAuthStateChanged,
         builder: (context, snapshot) {
-          print(snapshot.data);
           if (snapshot.hasData) {
             return const ListPage();
           }
