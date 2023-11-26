@@ -74,22 +74,24 @@ class _$ListStateCopyWithImpl<$Res, $Val extends ListState>
 }
 
 /// @nodoc
-abstract class _$$_IdleCopyWith<$Res> {
-  factory _$$_IdleCopyWith(_$_Idle value, $Res Function(_$_Idle) then) =
-      __$$_IdleCopyWithImpl<$Res>;
+abstract class _$$IdleImplCopyWith<$Res> {
+  factory _$$IdleImplCopyWith(
+          _$IdleImpl value, $Res Function(_$IdleImpl) then) =
+      __$$IdleImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_IdleCopyWithImpl<$Res> extends _$ListStateCopyWithImpl<$Res, _$_Idle>
-    implements _$$_IdleCopyWith<$Res> {
-  __$$_IdleCopyWithImpl(_$_Idle _value, $Res Function(_$_Idle) _then)
+class __$$IdleImplCopyWithImpl<$Res>
+    extends _$ListStateCopyWithImpl<$Res, _$IdleImpl>
+    implements _$$IdleImplCopyWith<$Res> {
+  __$$IdleImplCopyWithImpl(_$IdleImpl _value, $Res Function(_$IdleImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Idle implements _Idle {
-  const _$_Idle();
+class _$IdleImpl implements _Idle {
+  const _$IdleImpl();
 
   @override
   String toString() {
@@ -99,7 +101,7 @@ class _$_Idle implements _Idle {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Idle);
+        (other.runtimeType == runtimeType && other is _$IdleImpl);
   }
 
   @override
@@ -169,22 +171,24 @@ class _$_Idle implements _Idle {
 }
 
 abstract class _Idle implements ListState {
-  const factory _Idle() = _$_Idle;
+  const factory _Idle() = _$IdleImpl;
 }
 
 /// @nodoc
-abstract class _$$_LoadedCopyWith<$Res> {
-  factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
-      __$$_LoadedCopyWithImpl<$Res>;
+abstract class _$$LoadedImplCopyWith<$Res> {
+  factory _$$LoadedImplCopyWith(
+          _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
+      __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Product> productList});
 }
 
 /// @nodoc
-class __$$_LoadedCopyWithImpl<$Res>
-    extends _$ListStateCopyWithImpl<$Res, _$_Loaded>
-    implements _$$_LoadedCopyWith<$Res> {
-  __$$_LoadedCopyWithImpl(_$_Loaded _value, $Res Function(_$_Loaded) _then)
+class __$$LoadedImplCopyWithImpl<$Res>
+    extends _$ListStateCopyWithImpl<$Res, _$LoadedImpl>
+    implements _$$LoadedImplCopyWith<$Res> {
+  __$$LoadedImplCopyWithImpl(
+      _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -192,7 +196,7 @@ class __$$_LoadedCopyWithImpl<$Res>
   $Res call({
     Object? productList = null,
   }) {
-    return _then(_$_Loaded(
+    return _then(_$LoadedImpl(
       null == productList
           ? _value._productList
           : productList // ignore: cast_nullable_to_non_nullable
@@ -203,8 +207,9 @@ class __$$_LoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loaded implements _Loaded {
-  const _$_Loaded(final List<Product> productList) : _productList = productList;
+class _$LoadedImpl implements _Loaded {
+  const _$LoadedImpl(final List<Product> productList)
+      : _productList = productList;
 
   final List<Product> _productList;
   @override
@@ -223,7 +228,7 @@ class _$_Loaded implements _Loaded {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Loaded &&
+            other is _$LoadedImpl &&
             const DeepCollectionEquality()
                 .equals(other._productList, _productList));
   }
@@ -235,8 +240,8 @@ class _$_Loaded implements _Loaded {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
-      __$$_LoadedCopyWithImpl<_$_Loaded>(this, _$identity);
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -302,10 +307,10 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements ListState {
-  const factory _Loaded(final List<Product> productList) = _$_Loaded;
+  const factory _Loaded(final List<Product> productList) = _$LoadedImpl;
 
   List<Product> get productList;
   @JsonKey(ignore: true)
-  _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

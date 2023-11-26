@@ -17,14 +17,12 @@ class Registration extends StatefulWidget {
 class _RegistrationState extends State<Registration> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    nameController.dispose();
     super.dispose();
   }
 
@@ -50,11 +48,6 @@ class _RegistrationState extends State<Registration> {
                                 fontWeight: FontWeight.w800, fontSize: 20),
                           ),
                           Text(Strings.of(context).registerInfo),
-                          UserTextField(
-                            controller: nameController,
-                            hintText: Strings.of(context).nameHintText,
-                            isTextVisible: false,
-                          ),
                           UserTextField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -88,9 +81,9 @@ class _RegistrationState extends State<Registration> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 context.read<RegistrationCubit>().register(
-                                    emailController.text.trim(),
-                                    passwordController.text.trim(),
-                                    nameController.text);
+                                      emailController.text.trim(),
+                                      passwordController.text.trim(),
+                                    );
                               }
                             },
                             child: Text(

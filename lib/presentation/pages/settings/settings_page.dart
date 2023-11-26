@@ -18,7 +18,6 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final x = context.read<AuthService>().firebaseAuth.currentUser;
-    var userName = x?.displayName;
     var userEmail = x?.email;
 
     return Scaffold(
@@ -40,26 +39,20 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               SettingTile(
-                icon: Icons.person,
-                settingTileTitle: Strings.of(context).userName,
-                settingTileSubtitle: userName.toString(),
-                settingTileHintText: Strings.of(context).changeUserNameHintText,
-                onPressed: () => _showMyDialog('Change name', 'New name'),
-              ),
-              SettingTile(
                 icon: Icons.lock,
                 settingTileTitle: Strings.of(context).changePasswordText,
                 settingTileHintText: Strings.of(context).changePasswordHintText,
                 onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ChangePasswordPage())),
+                        builder: (context) => const ChangePasswordPage())),
               ),
               SettingTile(
                 settingTileTitle: userEmail.toString(),
                 icon: Icons.email,
                 settingTileHintText: Strings.of(context).changeEmailHintText,
-                onPressed: () => _showMyDialog('Change email', 'New email'),
+                onPressed: () =>
+                    _showMyDialog('Change email', 'New email', () {}),
               )
             ],
           ),
@@ -68,26 +61,28 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Future<void> _showMyDialog(String title, String hintText) async => showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext dialogContext) => AlertDialog(
-            title: Text(title),
-            content: TextField(
-              controller: settingsTileController,
-              decoration: InputDecoration(
-                hintText: hintText,
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(dialogContext).pop(),
-                child: const Text('Close'),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: const Text('Change'),
-              )
-            ],
-          ));
+  Future<void> _showMyDialog(
+          String title, String hintText, Function() onPressed) async =>
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext dialogContext) => AlertDialog(
+                title: Text(title),
+                content: TextField(
+                  controller: settingsTileController,
+                  decoration: InputDecoration(
+                    hintText: hintText,
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(dialogContext).pop(),
+                    child: const Text('Close'),
+                  ),
+                  TextButton(
+                    onPressed: () => onPressed(),
+                    child: const Text('Change'),
+                  )
+                ],
+              ));
 }
