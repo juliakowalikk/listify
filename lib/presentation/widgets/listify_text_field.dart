@@ -17,14 +17,16 @@ class UserTextField extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(14.0),
             child: TextFormField(
               validator: validator,
               obscureText: isTextVisible,
-              cursorColor: Colors.black,
+              cursorColor: Colors.purple,
               decoration: InputDecoration(
                 focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black),
+                  borderSide: BorderSide(
+                    color: Colors.deepPurpleAccent,
+                  ),
                 ),
                 hintText: hintText,
                 enabledBorder: const OutlineInputBorder(),

@@ -24,9 +24,15 @@
   "profileTitle": "Profile details",
   "userName": "Name:",
   "changeUserNameHintText": "Type your name",
-  "changePasswordText": "Change your password",
+  "changePasswordText": "Change password",
   "changePasswordHintText": "Type new password",
   "changeEmailText": "Change your email",
-  "changeEmailHintText": "Type new email"
+  "changeEmailHintText": "Type new email",
+  "changePasswordInfo": "Your password must be at least six characters \n and can include special characters",
+  "changePasswordSuccess": "Your password has been changed successfully!",
+  "error":"Something get wrong",
+  "oldPasswordText": "Retype your old password",
+  "newPassword": "Type your new password"
+
 
 }

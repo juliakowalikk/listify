@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'change_password_cubit.dart';
+part of 'settings_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,25 +15,25 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ChangePasswordState {
+mixin _$SettingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() successChangePassword,
+    required TResult Function() emailChanged,
     required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? successChangePassword,
+    TResult? Function()? emailChanged,
     TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? successChangePassword,
+    TResult Function()? emailChanged,
     TResult Function()? error,
     required TResult orElse(),
   }) =>
@@ -41,22 +41,21 @@ mixin _$ChangePasswordState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_SuccessChangePassword value)
-        successChangePassword,
+    required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_SuccessChangePassword value)? successChangePassword,
+    TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_SuccessChangePassword value)? successChangePassword,
+    TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -64,16 +63,16 @@ mixin _$ChangePasswordState {
 }
 
 /// @nodoc
-abstract class $ChangePasswordStateCopyWith<$Res> {
-  factory $ChangePasswordStateCopyWith(
-          ChangePasswordState value, $Res Function(ChangePasswordState) then) =
-      _$ChangePasswordStateCopyWithImpl<$Res, ChangePasswordState>;
+abstract class $SettingsStateCopyWith<$Res> {
+  factory $SettingsStateCopyWith(
+          SettingsState value, $Res Function(SettingsState) then) =
+      _$SettingsStateCopyWithImpl<$Res, SettingsState>;
 }
 
 /// @nodoc
-class _$ChangePasswordStateCopyWithImpl<$Res, $Val extends ChangePasswordState>
-    implements $ChangePasswordStateCopyWith<$Res> {
-  _$ChangePasswordStateCopyWithImpl(this._value, this._then);
+class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
+    implements $SettingsStateCopyWith<$Res> {
+  _$SettingsStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -90,7 +89,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$ChangePasswordStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$SettingsStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -104,7 +103,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ChangePasswordState.initial()';
+    return 'SettingsState.initial()';
   }
 
   @override
@@ -120,7 +119,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() successChangePassword,
+    required TResult Function() emailChanged,
     required TResult Function() error,
   }) {
     return initial();
@@ -130,7 +129,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? successChangePassword,
+    TResult? Function()? emailChanged,
     TResult? Function()? error,
   }) {
     return initial?.call();
@@ -140,7 +139,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? successChangePassword,
+    TResult Function()? emailChanged,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -154,8 +153,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_SuccessChangePassword value)
-        successChangePassword,
+    required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -165,7 +163,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_SuccessChangePassword value)? successChangePassword,
+    TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -175,7 +173,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_SuccessChangePassword value)? successChangePassword,
+    TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -186,42 +184,40 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements ChangePasswordState {
+abstract class _Initial implements SettingsState {
   const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
-abstract class _$$SuccessChangePasswordImplCopyWith<$Res> {
-  factory _$$SuccessChangePasswordImplCopyWith(
-          _$SuccessChangePasswordImpl value,
-          $Res Function(_$SuccessChangePasswordImpl) then) =
-      __$$SuccessChangePasswordImplCopyWithImpl<$Res>;
+abstract class _$$EmailChangedImplCopyWith<$Res> {
+  factory _$$EmailChangedImplCopyWith(
+          _$EmailChangedImpl value, $Res Function(_$EmailChangedImpl) then) =
+      __$$EmailChangedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SuccessChangePasswordImplCopyWithImpl<$Res>
-    extends _$ChangePasswordStateCopyWithImpl<$Res, _$SuccessChangePasswordImpl>
-    implements _$$SuccessChangePasswordImplCopyWith<$Res> {
-  __$$SuccessChangePasswordImplCopyWithImpl(_$SuccessChangePasswordImpl _value,
-      $Res Function(_$SuccessChangePasswordImpl) _then)
+class __$$EmailChangedImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$EmailChangedImpl>
+    implements _$$EmailChangedImplCopyWith<$Res> {
+  __$$EmailChangedImplCopyWithImpl(
+      _$EmailChangedImpl _value, $Res Function(_$EmailChangedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SuccessChangePasswordImpl implements _SuccessChangePassword {
-  const _$SuccessChangePasswordImpl();
+class _$EmailChangedImpl implements _EmailChanged {
+  const _$EmailChangedImpl();
 
   @override
   String toString() {
-    return 'ChangePasswordState.successChangePassword()';
+    return 'SettingsState.emailChanged()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SuccessChangePasswordImpl);
+        (other.runtimeType == runtimeType && other is _$EmailChangedImpl);
   }
 
   @override
@@ -231,32 +227,32 @@ class _$SuccessChangePasswordImpl implements _SuccessChangePassword {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() successChangePassword,
+    required TResult Function() emailChanged,
     required TResult Function() error,
   }) {
-    return successChangePassword();
+    return emailChanged();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? successChangePassword,
+    TResult? Function()? emailChanged,
     TResult? Function()? error,
   }) {
-    return successChangePassword?.call();
+    return emailChanged?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? successChangePassword,
+    TResult Function()? emailChanged,
     TResult Function()? error,
     required TResult orElse(),
   }) {
-    if (successChangePassword != null) {
-      return successChangePassword();
+    if (emailChanged != null) {
+      return emailChanged();
     }
     return orElse();
   }
@@ -265,40 +261,39 @@ class _$SuccessChangePasswordImpl implements _SuccessChangePassword {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_SuccessChangePassword value)
-        successChangePassword,
+    required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_Error value) error,
   }) {
-    return successChangePassword(this);
+    return emailChanged(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_SuccessChangePassword value)? successChangePassword,
+    TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_Error value)? error,
   }) {
-    return successChangePassword?.call(this);
+    return emailChanged?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_SuccessChangePassword value)? successChangePassword,
+    TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
-    if (successChangePassword != null) {
-      return successChangePassword(this);
+    if (emailChanged != null) {
+      return emailChanged(this);
     }
     return orElse();
   }
 }
 
-abstract class _SuccessChangePassword implements ChangePasswordState {
-  const factory _SuccessChangePassword() = _$SuccessChangePasswordImpl;
+abstract class _EmailChanged implements SettingsState {
+  const factory _EmailChanged() = _$EmailChangedImpl;
 }
 
 /// @nodoc
@@ -310,7 +305,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$ChangePasswordStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$SettingsStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -324,7 +319,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'ChangePasswordState.error()';
+    return 'SettingsState.error()';
   }
 
   @override
@@ -340,7 +335,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() successChangePassword,
+    required TResult Function() emailChanged,
     required TResult Function() error,
   }) {
     return error();
@@ -350,7 +345,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? successChangePassword,
+    TResult? Function()? emailChanged,
     TResult? Function()? error,
   }) {
     return error?.call();
@@ -360,7 +355,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? successChangePassword,
+    TResult Function()? emailChanged,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -374,8 +369,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_SuccessChangePassword value)
-        successChangePassword,
+    required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -385,7 +379,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_SuccessChangePassword value)? successChangePassword,
+    TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -395,7 +389,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_SuccessChangePassword value)? successChangePassword,
+    TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -406,6 +400,6 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements ChangePasswordState {
+abstract class _Error implements SettingsState {
   const factory _Error() = _$ErrorImpl;
 }

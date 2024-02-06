@@ -13,13 +13,17 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
       : super(const ChangePasswordState.initial());
 
   Future<void> changeUserPassword({email, newPassword, oldPassword}) async {
-    final x = authService.firebaseAuth.currentUser;
-    print(x);
-    var cred =
-        EmailAuthProvider.credential(email: email, password: oldPassword);
-    await x!.reauthenticateWithCredential(cred).then(
-          (value) => x.updatePassword(newPassword),
-        );
-    emit(const ChangePasswordState.successChangePassword());
+    try {
+      final x = authService.firebaseAuth.currentUser;
+      print(x);
+      var cred =
+          EmailAuthProvider.credential(email: email, password: oldPassword);
+      await x!.reauthenticateWithCredential(cred).then(
+            (value) => x.updatePassword(newPassword),
+          );
+      emit(const ChangePasswordState.successChangePassword());
+    } catch (e) {
+      emit(const ChangePasswordState.error());
+    }
   }
 }
