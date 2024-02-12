@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,67 +18,67 @@ class _SettingsPageState extends State<SettingsPage> {
   final TextEditingController emailChangeController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    final x = context.read<AuthService>().firebaseAuth.currentUser;
-    var userEmail = x?.email;
-
-    return BlocProvider(
-      create: (context) => SettingsCubit(context.read<AuthService>()),
-      child: Builder(
+  Widget build(BuildContext context) => BlocProvider(
+        create: (context) => SettingsCubit(context.read<AuthService>()),
+        child: Builder(
           builder: (context) => BlocListener<SettingsCubit, SettingsState>(
-                listener: _listener,
-                child: Scaffold(
-                  appBar: AppBar(
-                    title: Text(Strings.of(context).settings),
-                    backgroundColor: Colors.white70,
-                  ),
-                  body: SafeArea(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Text(
-                              Strings.of(context).profileTitle,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          SettingTile(
-                            icon: Icons.lock,
-                            settingTileTitle:
-                                Strings.of(context).changePasswordText,
-                            settingTileHintText:
-                                Strings.of(context).changePasswordHintText,
-                            onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ChangePasswordPage())),
-                          ),
-                          SettingTile(
-                            settingTileTitle: userEmail.toString(),
-                            icon: Icons.email,
-                            settingTileHintText:
-                                Strings.of(context).changeEmailHintText,
-                            onPressed: () => _showMyDialog(() {
-                              context.read<SettingsCubit>().changeUserEmail(
-                                    newEmail: emailChangeController.text,
-                                  );
-                              emailChangeController.clear();
-                            }),
-                          ),
-                        ],
+            listener: _listener,
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(Strings.of(context).settings),
+                backgroundColor: Colors.white70,
+              ),
+              body: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Text(
+                          Strings.of(context).profileTitle,
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       ),
-                    ),
+                      SettingTile(
+                        icon: Icons.lock,
+                        settingTileTitle:
+                            Strings.of(context).changePasswordText,
+                        settingTileHintText:
+                            Strings.of(context).changePasswordHintText,
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ChangePasswordPage())),
+                      ),
+                      StreamBuilder(
+                        stream: FirebaseAuth.instance.userChanges(),
+                        builder: (BuildContext context, snapshot) =>
+                            SettingTile(
+                          settingTileTitle: snapshot.data?.email.toString(),
+                          icon: Icons.email,
+                          settingTileHintText:
+                              Strings.of(context).changeEmailHintText,
+                          onPressed: () => _showMyDialog(() {
+                            context.read<SettingsCubit>().changeUserEmail(
+                                  newEmail: emailChangeController.text,
+                                );
+                            emailChangeController.clear();
+                          }),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              )),
-    );
-  }
+              ),
+            ),
+          ),
+        ),
+      );
 
-  Future<void> _showMyDialog(Function() onPressed) async => showDialog(
+  Future<void> _showMyDialog(Function() onPressed) => showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext dialogContext) => AlertDialog(
@@ -100,7 +101,9 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ));
   void _listener(BuildContext context, SettingsState state) => state.maybeWhen(
-        emailChanged: () => print('success'),
+        emailChanged: () => print(
+          'success ',
+        ),
         orElse: () => null,
       );
 }
